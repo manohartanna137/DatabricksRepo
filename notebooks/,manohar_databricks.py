@@ -74,7 +74,7 @@ max_salary.show()
 
 # COMMAND ----------
 
-from pyspark.sql.types import ArrayType
+from pyspark.sql.types import ArrayType,array
 from pyspark.sql.functions import explode
 
 
@@ -82,43 +82,34 @@ data=[(1,[1,2]),(2,[3,4])]
 schema=StructType([StructField(name='id',dataType=IntegerType()),\
                   StructField(name='numbers',dataType=ArrayType(IntegerType()))])
 
-df=spark.createDataFrame(data,schema)
-df.show()
+
+# COMMAND ----------
 
 
+df_array=spark.createDataFrame(data,schema)
+df_array.show()
 
-df2=df.withColumn('first_number',df.numbers[0]).show()
-
-
+# COMMAND ----------
 
 data=[(1,2),(1,2)]
 schema=StructType([StructField(name='num1',dataType=IntegerType()),\
                   StructField(name='num2',dataType=IntegerType())])
 
-df=spark.createDataFrame(data,schema)
-df.show()
+df_array2=spark.createDataFrame(data,schema)
+df_array2.show()
 
 
-
-
-df2=df.withColumn('Array',array(df.num1,df.num2)).show()
-
-
-
+# COMMAND ----------
 
 data=[(1,['azure','aws']),(1,['python','c++'])]
 schema=StructType([StructField(name='id',dataType=IntegerType()),\
                   StructField(name='skills',dataType=ArrayType(StringType()))])
 
-df=spark.createDataFrame(data,schema)
-df.show()
+# COMMAND ----------
 
-
-
-
-df2=df.withColumn('Array',explode(df.skills)).show()
+df_explode=spark.createDataFrame(data,schema)
+df_explode.show()
+df2=df_explode.withColumn('Array',explode(df_explode.skills)).show()
 
 # COMMAND ----------
 
-df=spark.createDataFrame(data,schema)
-df.show()
