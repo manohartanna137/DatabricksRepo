@@ -189,3 +189,8 @@ df_merge.createOrReplaceTempView('source_view')
 
 # COMMAND ----------
 
+# MAGIC %sql
+# MAGIC select * from employee_demo version as of 1
+
+# COMMAND ----------
+
