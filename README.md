@@ -4,7 +4,7 @@
 - Used with column for the column with where condition.
 - Used explode function to flatten a array type in another data frame.
 
-#### Deltalake Practice ####
+### Deltalake Practice ###
 - Created a delta table
 - Inserted the vallues into it by using different insert methods
 - Updated the values of the delta table
