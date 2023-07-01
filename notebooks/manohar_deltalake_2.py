@@ -144,3 +144,37 @@ tableinstance.restoreToTimestamp('2023-07-01T13:10:00.000+0000')
 
 # COMMAND ----------
 
+# MAGIC %sql
+# MAGIC select * from scd2
+
+# COMMAND ----------
+
+data_ev = [('mike', 128, 85, 'social', 'A'),
+    ('messi', 129, 86, 'english', 'B'),
+    ('jr neymar', 130, 87, 'maths', 'A')]
+
+schema_ev = StructType([
+    StructField("name", StringType(), nullable=False),
+    StructField("rollno", IntegerType(), nullable=False),
+    StructField("marks", IntegerType(), nullable=False),
+    StructField("subject", StringType(), nullable=False),
+    StructField("grade", StringType(), nullable=False)])
+
+df_evolution = spark.createDataFrame(data_ev, schema_ev)
+display(df_evolution)
+
+# COMMAND ----------
+
+# MAGIC %md #### schema evolution
+
+# COMMAND ----------
+
+df_evolution.write.option('mergeSchema',True).format('delta').mode('append').saveAsTable('scd2')
+
+# COMMAND ----------
+
+# MAGIC %sql
+# MAGIC select * from scd2
+
+# COMMAND ----------
+
